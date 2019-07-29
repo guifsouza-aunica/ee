@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<title>G.A. User ID Test</title>
+	<script src="js/sha256.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-M4SQX72');</script>
+
+	<script>
+		function pageview() {
+			dataLayer.push({
+				'event': 'custom_pageview',
+				'user_id': $('#sl_user option:selected').val()
+			});
+		}
+
+		function add() {
+			var id = document.getElementById("ipt_id").value,
+				name = document.getElementById("ipt_name").value,
+				brand = document.getElementById("ipt_brand").value,
+				category = document.getElementById("ipt_cat").value,
+				variant = document.getElementById("ipt_var").value,
+				price = document.getElementById("ipt_price").value,
+				qty = document.getElementById("ipt_qty").value;
+
+			dataLayer.push({
+				'event': 'addToCart',
+				'ecommerce': {
+					'currencyCode': 'BRL',
+					'add': {
+						'products': [{
+							'name': name,
+							'id': id,
+							'price': price,
+							'brand': brand,
+							'category': category,
+							'variant': variant,
+							'quantity': qty
+						}]
+					}
+				}
+			});
+		}
+
+		function remove() {
+			var id = document.getElementById("ipt_id").value,
+				name = document.getElementById("ipt_name").value,
+				brand = document.getElementById("ipt_brand").value,
+				category = document.getElementById("ipt_cat").value,
+				variant = document.getElementById("ipt_var").value,
+				price = document.getElementById("ipt_price").value,
+				qty = document.getElementById("ipt_qty").value;
+
+			dataLayer.push({
+				'event': 'removeFromCart',
+				'ecommerce': {
+					'remove': {
+						'products': [{
+							'name': name,
+							'id': id,
+							'price': price,
+							'brand': brand,
+							'category': category,
+							'variant': variant,
+							'quantity': qty
+						}]
+					}
+				}
+			});
+		}
+
+		function purchase() {
+
+			var id = document.getElementById("ipt_id").value,
+				name = document.getElementById("ipt_name").value,
+				brand = document.getElementById("ipt_brand").value,
+				category = document.getElementById("ipt_cat").value,
+				variant = document.getElementById("ipt_var").value,
+				price = document.getElementById("ipt_price").value,
+				qty = document.getElementById("ipt_qty").value;
+
+			var transactionID = new Date();
+
+			var ano = transactionID.getFullYear(),
+				mes = (transactionID.getMonth() >= 9 ? (transactionID.getMonth() + 1).toString() : "0" + (transactionID.getMonth() + 1).toString()),
+				dia = (transactionID.getDate().toString().length <= 1 ? "0" + transactionID.getDate().toString() : transactionID.getDate().toString()),
+				hora = (transactionID.getHours().toString().length <= 1 ? "0" + transactionID.getHours().toString() : transactionID.getHours().toString()),
+				minuto = (transactionID.getMinutes().toString().length <= 1 ? "0" + transactionID.getMinutes().toString() : transactionID.getMinutes().toString()),
+				segundos = (transactionID.getSeconds().toString().length <= 1 ? "0" + transactionID.getSeconds().toString() : transactionID.getSeconds().toString());
+
+
+			transactionID = ano + mes + dia + "." + hora + minuto + segundos;
+			
+
+			dataLayer.push({
+				'event': 'purchase',
+				'ecommerce': {
+					'purchase': {
+						'actionField': {
+							'id': transactionID,
+							'affiliation': 'Online Store',
+							'revenue': '35.43',
+							'tax':'4.90',
+							'shipping': '5.99',
+							'coupon': 'SUMMER_SALE'
+						},
+						'products': [{
+							'name': name,
+							'id': id,
+							'price': price,
+							'brand': brand,
+							'category': category,
+							'variant': variant,
+							'quantity': qty
+						}]
+					}
+				}
+			});
+
+			dataLayer.push({
+				'event': 'custom_pageview',
+				'user_id': $('#sl_user option:selected').val()
+			});
+		}
+	</script>
+
+</head>
+<body>
+	<br>
+	<select id="sl_user">
+		<option id="sl_opt_1" value="user_lourival">Lourival</option>
+		<option id="sl_opt_2" value="user_lucca">Lucca</option>
+		<option id="sl_opt_3" value="user_emerson">Emerson</option>
+		<option id="sl_opt_3" value="user_gislaine">Gislaine</option>
+		<option id="sl_opt_4" value="user_sandro">Sandro</option>
+		<option id="sl_opt_5" value="user_viviane">Viviane</option>
+		<option id="sl_opt_6" value="user_guilherme">Guilherme</option>
+		<option id="sl_opt_6" value="user_eduardo">Eduardo</option>
+	</select>
+	<br>
+	<br>
+	<br>
+	<label for="ipt_id">ID</label>
+	<input id="ipt_id" type="text">
+	<br>
+	<label for="ipt_name">Name</label>
+	<input id="ipt_name" type="text">
+	<br>
+	<label for="ipt_brand">Brand</label>
+	<input id="ipt_brand" type="text">
+	<br>
+	<label for="ipt_cat">Category</label>
+	<input id="ipt_cat" type="text">
+	<br>
+	<label for="ipt_var">Variant</label>
+	<input id="ipt_var" type="text">
+	<br>
+	<label for="ipt_price">Price</label>
+	<input id="ipt_price" type="text">
+	<br>
+	<label for="ipt_qty">Qty</label>
+	<input id="ipt_qty" type="text">
+	<br>
+	<br>
+	<br>
+	<label for="bt_add">Add to Cart</label>
+	<button id="bt_add" onclick="add()">Send event</button>
+	<br>
+	<label for="bt_remove">Remove from Cart</label>
+	<button id="bt_remove" onclick="remove()">Send event</button>
+	<br>
+	<label for="bt_purchase">Purchase</label>
+	<button id="bt_purchase" onclick="purchase()">Send event</button>
+</body>
+</html>
